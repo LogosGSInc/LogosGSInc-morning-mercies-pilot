@@ -1,0 +1,19 @@
+<svg xmlns="http://www.w3.org/2000/svg" width="1200" height="630" viewBox="0 0 1200 630">
+<defs>
+  <linearGradient id="bg" x1="0" y1="0" x2="1" y2="1"><stop stop-color="#07182a"/><stop offset=".6" stop-color="#081221"/><stop offset="1" stop-color="#02070d"/></linearGradient>
+  <linearGradient id="metal" x1="0" y1="0" x2="1" y2="1"><stop stop-color="#f5efe2"/><stop offset=".2" stop-color="#85827d"/><stop offset=".4" stop-color="#d8d5cf"/><stop offset=".62" stop-color="#65625e"/><stop offset=".82" stop-color="#ece6dc"/><stop offset="1" stop-color="#8b867e"/></linearGradient>
+  <pattern id="hammer" width="24" height="24" patternUnits="userSpaceOnUse"><circle cx="6" cy="7" r="4.5" fill="#fff" opacity=".08"/><circle cx="17" cy="16" r="5" fill="#000" opacity=".09"/></pattern>
+</defs>
+<rect width="1200" height="630" fill="#02060c"/>
+<rect x="18" y="18" width="1164" height="594" rx="34" fill="url(#metal)"/>
+<rect x="18" y="18" width="1164" height="594" rx="34" fill="url(#hammer)"/>
+<rect x="42" y="42" width="1116" height="546" rx="28" fill="url(#bg)" stroke="#b9b5ad" stroke-width="3"/>
+<text x="600" y="135" text-anchor="middle" fill="#e8c894" font-family="cursive" font-style="italic" font-size="58">Morning Mercies</text>
+<text x="600" y="228" text-anchor="middle" fill="#f2e6cf" font-family="cursive" font-weight="700" font-size="76">Authored by Grace</text>
+<line x1="340" y1="262" x2="860" y2="262" stroke="#c8b087" stroke-width="2"/>
+<text x="600" y="333" text-anchor="middle" fill="#f3ead6" font-family="Georgia,serif" font-weight="700" font-size="43">WHY YOU KEEP LOSING</text>
+<text x="600" y="383" text-anchor="middle" fill="#f3ead6" font-family="Georgia,serif" font-weight="700" font-size="43">THE SAME BATTLE</text>
+<text x="600" y="445" text-anchor="middle" fill="#cfc4a2" font-family="Georgia,serif" font-style="italic" font-size="26">A Morning Mercies witness on Ephesians 6:11</text>
+<text x="600" y="514" text-anchor="middle" fill="#d7c29b" font-family="Georgia,serif" font-size="21" letter-spacing="2">AN AUTHORED BY GRACE PUBLICATION</text>
+<text x="1048" y="553" text-anchor="end" fill="#d7c29b" font-family="cursive" font-style="italic" font-size="34">D. W. Smith</text>
+</svg>
