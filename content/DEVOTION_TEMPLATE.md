@@ -1,35 +1,48 @@
 ---
-title: "YOUR DEVOTION TITLE"
-kicker: "SCRIPTURE OR SHORT KICKER"
-subtitle: "A Morning Mercies story on SCRIPTURE (KJV)"
-scripture: "SCRIPTURE"
+title: "SEO TITLE"
+root_verse: "ROOT SCRIPTURE"
 translation: "KJV"
-slug: "short-url-slug"
-description: "One sentence for Facebook and search previews."
-share_image: "assets/og/ephesians-6-11.png"
+slug: "lowercase-kebab-case-slug"
+description: "ONE SENTENCE DESCRIPTION"
+card_title: "SHORT TITLE FOR SOCIAL CARD"
+card_scripture: "ROOT SCRIPTURE"
+social_teaser: "A 35-70 word taste of the devotion that invites the reader to continue."
 author: "D. W. Smith"
-day: "2"
+series: "Morning Mercies"
+brand: "Authored by Grace"
+tagline: "Witness for daily devotion"
 volume: "Pilot"
+day: "2"
 ---
 
-Paste the final approved devotion here.
+# Morning Mercy
 
-Use blank lines between paragraphs.
+## ROOT SCRIPTURE
 
-> Scripture quotations can be formatted this way.  
-> — Reference · KJV
+[Short-form devotional]
+
+### Prayer
+
+[Short-form prayer]
 
 ---
 
-### Optional scene break
+# Morning Mercies Book Devotional
 
-Continue the devotion.
+## SEO TITLE
 
-**Optional strong closing line.**
+### A Morning Mercies story on ROOT SCRIPTURE (KJV)
 
-*Optional closing blessing.*
+[Full narrative devotional]
 
-## Verses in this story
+*One-line blessing.*
 
-- Reference one
-- Reference two
+### Prayer
+
+[60–90 word prayer]
+
+### Verses Used
+
+- Condition verse reference
+- Root verse reference
+- Effect verse reference

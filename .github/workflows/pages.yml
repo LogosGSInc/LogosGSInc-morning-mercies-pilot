@@ -11,7 +11,7 @@ permissions:
   id-token: write
 
 concurrency:
-  group: "pages"
+  group: pages
   cancel-in-progress: false
 
 jobs:
@@ -20,22 +20,20 @@ jobs:
     steps:
       - name: Check out repository
         uses: actions/checkout@v6
-
       - name: Configure GitHub Pages
         uses: actions/configure-pages@v5
-
       - name: Build static site
         env:
           SITE_URL: https://logosgsinc.github.io/LogosGSInc-morning-mercies-pilot/
         run: python3 build.py
-
-      - name: Render Facebook preview image
+      - name: Render social cards
         run: |
           sudo apt-get update
           sudo apt-get install -y librsvg2-bin
-          mkdir -p _site/assets/og
-          rsvg-convert -w 1200 -h 630 assets/og/ephesians-6-11.svg -o _site/assets/og/ephesians-6-11.png
-
+          find _site/assets/og -type f -name '*.svg' -print0 | while IFS= read -r -d '' svg; do
+            png="${svg%.svg}.png"
+            rsvg-convert -w 1200 -h 630 "$svg" -o "$png"
+          done
       - name: Upload GitHub Pages artifact
         uses: actions/upload-pages-artifact@v4
         with:

@@ -1,56 +1,30 @@
 <!doctype html>
 <html lang="en">
 <head>
-  <meta charset="utf-8">
-  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <meta charset="utf-8"><meta name="viewport" content="width=device-width, initial-scale=1">
   <title>{{TITLE}} | Morning Mercies — Authored by Grace</title>
   <meta name="description" content="{{DESCRIPTION}}">
   <link rel="canonical" href="{{PAGE_URL}}">
-  <meta property="og:type" content="article">
-  <meta property="og:title" content="{{TITLE}}">
-  <meta property="og:description" content="{{DESCRIPTION}}">
-  <meta property="og:url" content="{{PAGE_URL}}">
+  <meta property="og:type" content="article"><meta property="og:title" content="{{TITLE}}">
+  <meta property="og:description" content="{{DESCRIPTION}}"><meta property="og:url" content="{{PAGE_URL}}">
   <meta property="og:site_name" content="Morning Mercies — Authored by Grace">
-  <meta property="og:image" content="{{SHARE_IMAGE_URL}}">
-  <meta property="og:image:secure_url" content="{{SHARE_IMAGE_URL}}">
-  <meta property="og:image:type" content="image/png">
-  <meta property="og:image:width" content="1200">
-  <meta property="og:image:height" content="630">
-  <meta property="og:image:alt" content="Morning Mercies — Authored by Grace. {{TITLE}}">
-  <meta name="twitter:card" content="summary_large_image">
-  <meta name="twitter:title" content="{{TITLE}}">
-  <meta name="twitter:description" content="{{DESCRIPTION}}">
-  <meta name="twitter:image" content="{{SHARE_IMAGE_URL}}">
-  <link rel="preconnect" href="https://fonts.googleapis.com">
-  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-  <link href="https://fonts.googleapis.com/css2?family=Alex+Brush&family=Cormorant+Garamond:ital,wght@0,400;0,500;0,600;1,400;1,500&family=Great+Vibes&family=Mrs+Saint+Delafield&family=Playfair+Display:ital,wght@0,600;0,700;1,500&display=swap" rel="stylesheet">
+  <meta property="og:image" content="{{SHARE_IMAGE_URL}}"><meta property="og:image:secure_url" content="{{SHARE_IMAGE_URL}}">
+  <meta property="og:image:type" content="image/png"><meta property="og:image:width" content="1200"><meta property="og:image:height" content="630">
+  <meta name="twitter:card" content="summary_large_image"><meta name="twitter:title" content="{{TITLE}}">
+  <meta name="twitter:description" content="{{DESCRIPTION}}"><meta name="twitter:image" content="{{SHARE_IMAGE_URL}}">
+  <link rel="preconnect" href="https://fonts.googleapis.com"><link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Alex+Brush&family=Cormorant+Garamond:ital,wght@0,400;0,500;0,600;0,700;1,400;1,500&family=Great+Vibes&family=Mrs+Saint+Delafield&family=Playfair+Display:ital,wght@0,600;0,700;1,500&display=swap" rel="stylesheet">
   <link rel="stylesheet" href="{{ASSET_PREFIX}}assets/css/morning-mercies.css">
 </head>
 <body>
-  <main class="page-shell">
-    <div class="frame">
-      <article class="card">
-        <header class="header">
-          <p class="brand-series">Morning Mercies</p>
-          <p class="brand-authored">Authored by Grace</p>
-          <p class="brand-witness">Witness for daily devotion</p>
-          <p class="brand-pub">An Authored by Grace Publication</p>
-        </header>
-        <section class="titleblock">
-          <p class="kicker">{{KICKER}}</p>
-          <h1>{{TITLE}}</h1>
-          <p class="subtitle">{{SUBTITLE}}</p>
-        </section>
-        <section class="body-copy">{{BODY_HTML}}</section>
-        <footer class="sig-row">
-          <div class="sig-block">
-            <p class="sig-label">Written by</p>
-            <span class="signature">{{AUTHOR}}</span>
-          </div>
-        </footer>
-        <div class="footer-strip"></div>
-      </article>
-    </div>
-  </main>
-</body>
-</html>
+<header class="brand-bar"><a class="brand-lockup" href="{{ASSET_PREFIX}}index.html"><span class="brand-small">Morning Mercies</span><span class="brand-main">Authored by Grace</span><span class="brand-tag">Witness for daily devotion</span></a></header>
+<main class="reader-shell">
+<article class="paper">
+<header class="devotion-head"><p class="eyebrow">{{ROOT_VERSE}} · {{TRANSLATION}}</p><h1>{{TITLE}}</h1><p class="reading-note">A Morning Mercies story · Scripture · prayer</p></header>
+<section class="story-copy">{{BODY_HTML}}</section>
+<section class="feedback-card mobile-pilot">{{PILOT_BLOCK}}</section>
+<footer class="signature-row"><div><p class="signature-label">Written by</p><p class="signature">{{AUTHOR}}</p><p class="publication-line">An Authored by Grace Publication</p></div></footer>
+</article>
+<aside class="pilot-rail"><div class="pilot-sticky feedback-card">{{PILOT_BLOCK}}</div><div class="rail-note"><span>Today’s share card</span><img src="{{SHARE_IMAGE_REL}}" alt="Share card for {{TITLE}}"></div></aside>
+</main>
+</body></html>
