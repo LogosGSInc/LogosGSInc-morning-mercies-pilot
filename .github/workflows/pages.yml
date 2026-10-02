@@ -22,18 +22,18 @@ jobs:
         uses: actions/checkout@v6
       - name: Configure GitHub Pages
         uses: actions/configure-pages@v5
+      - name: Set up Python
+        uses: actions/setup-python@v6
+        with:
+          python-version: "3.12"
+      - name: Install card renderer
+        run: python -m pip install -r requirements.txt
+      - name: Check publishing contract
+        run: python -m unittest -v test_publishing
       - name: Build static site
         env:
           SITE_URL: https://logosgsinc.github.io/LogosGSInc-morning-mercies-pilot/
         run: python3 build.py
-      - name: Render social cards
-        run: |
-          sudo apt-get update
-          sudo apt-get install -y librsvg2-bin
-          find _site/assets/og -type f -name '*.svg' -print0 | while IFS= read -r -d '' svg; do
-            png="${svg%.svg}.png"
-            rsvg-convert -w 1200 -h 630 "$svg" -o "$png"
-          done
       - name: Upload GitHub Pages artifact
         uses: actions/upload-pages-artifact@v4
         with:

@@ -37,3 +37,9 @@ The site root explains the project, features the newest devotion, offers the Fou
 ## Pages setup
 
 Repository Settings → Pages → Build and deployment → Source → **GitHub Actions**.
+
+## Approved house style and daily preparation
+
+See [the publishing decisions](docs/MORNING-MERCIES-HOUSE-STYLE.md). Install dependencies with `python -m pip install -r requirements.txt`, then run `python build.py`. The build produces final PNG cards directly using bundled fonts and approved artwork; no separate SVG conversion is required.
+
+Supply the exact card verse, reference, thematic line, and publication date in the canonical Markdown. Publish the prepared entry the next morning only after the author's release instruction. Never push main as part of afternoon preparation.
