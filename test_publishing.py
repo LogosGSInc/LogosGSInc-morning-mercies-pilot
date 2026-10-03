@@ -12,20 +12,34 @@ class PublishingTests(unittest.TestCase):
             out = Path(directory) / 'site'
             with patch.object(build, 'OUT_DIR', out):
                 build.build()
-            slug = 'hebrews-12-6-meaning-whom-the-lord-loveth-he-chasteneth'
+            sources = list(build.CONTENT_DIR.glob('*.md'))
+            latest = max(
+                sources,
+                key=lambda source: build.parse_front_matter(source.read_text())[0].get(
+                    'publish_date', source.name[:10]
+                ),
+            )
+            meta, _ = build.parse_front_matter(latest.read_text())
+            slug = meta['slug']
             index = (out / 'index.html').read_text()
             self.assertIn(f'href="devotions/{slug}/">Read today', index)
             page = (out / 'devotions' / slug / 'index.html').read_text()
             self.assertIn(f'assets/og/{slug}.png', page)
-            self.assertIn('The bus from Montgomery', page)
+            hebrews = (out / 'devotions' / 'hebrews-12-6-meaning-whom-the-lord-loveth-he-chasteneth' / 'index.html').read_text()
+            self.assertIn('The bus from Montgomery', hebrews)
             self.assertNotIn('{{', page)
             self.assertNotIn('member library', index)
-            self.assertEqual(len(list((out / 'assets' / 'og').glob('*.png'))), 5)
+            self.assertEqual(len(list((out / 'assets' / 'og').glob('*.png'))), len(sources))
             for card in (out / 'assets' / 'og').glob('*.png'):
                 with Image.open(card) as image:
                     self.assertEqual(image.size, (1200, 630))
             share = (out / 'share' / f'{slug}.txt').read_text()
             self.assertIn(f'devotions/{slug}/', share)
+            exodus = (out / 'devotions' / 'exodus-20-8-meaning-why-god-commands-his-people-to-rest' / 'index.html').read_text()
+            self.assertIn('Nate Ellison had not taken a day off', exodus)
+            self.assertIn('Make my rest a quiet witness', exodus)
+            self.assertNotIn('Before God ever told His people to rest', exodus)
+            self.assertNotIn('Many of us still live with Egypt', exodus)
 
     def test_duplicate_slug_is_rejected(self):
         source = next(build.CONTENT_DIR.glob('*.md')).read_text()
