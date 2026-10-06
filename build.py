@@ -1,5 +1,5 @@
 from __future__ import annotations
-import html, os, re, shutil, base64
+import html, os, re, shutil
 from datetime import date
 import cards
 from pathlib import Path
@@ -52,11 +52,13 @@ def markdown_to_html(source):
         if level: out.append(f"<h{min(level,4)}>{inline_md(s[level+1:].strip())}</h{min(level,4)}>"); i+=1; continue
         if s.startswith(">"):
             qs=[]
-            while i<len(lines) and lines[i].strip().startswith(">"): qs.append(inline_md(lines[i].strip()[1:].lstrip().rstrip())); i+=1
+            while i<len(lines) and lines[i].strip().startswith(">"):
+                qs.append(inline_md(lines[i].strip()[1:].lstrip().rstrip())); i+=1
             out.append("<blockquote><p>"+"<br>\n".join(qs)+"</p></blockquote>"); continue
         if s.startswith("- "):
             items=[]
-            while i<len(lines) and lines[i].strip().startswith("- "): items.append(inline_md(lines[i].strip()[2:].strip())); i+=1
+            while i<len(lines) and lines[i].strip().startswith("- "):
+                items.append(inline_md(lines[i].strip()[2:].strip())); i+=1
             out.append("<ul>"+"".join(f"<li>{x}</li>" for x in items)+"</ul>"); continue
         p=[]
         while i<len(lines):
@@ -83,8 +85,29 @@ def teaser(meta,short):
     return t if len(t)<=330 else t[:330].rsplit(" ",1)[0]+"…"
 
 def cover_svg():
-    encoded = base64.b64encode((ASSET_DIR / "cards" / "series-cover.png").read_bytes()).decode("ascii")
-    return f'<svg xmlns="http://www.w3.org/2000/svg" width="1080" height="1350"><image width="1080" height="1350" href="data:image/png;base64,{encoded}"/></svg>'
+    # The site cover now uses the same 1200x630 landscape geometry and the
+    # same approved house artwork as the daily cards. This keeps the series
+    # identity stable while daily copy changes independently.
+    return '''<svg xmlns="http://www.w3.org/2000/svg" width="1200" height="630" viewBox="0 0 1200 630" role="img" aria-labelledby="title desc">
+<title id="title">Morning Mercies — Authored by Grace</title>
+<desc id="desc">Morning Mercies landscape series cover with the established navy and warm-gold devotional artwork.</desc>
+<defs>
+  <linearGradient id="shade" x1="0" x2="1"><stop offset="0" stop-color="#02070c" stop-opacity=".94"/><stop offset=".58" stop-color="#02070c" stop-opacity=".62"/><stop offset="1" stop-color="#02070c" stop-opacity=".08"/></linearGradient>
+  <filter id="shadow" x="-20%" y="-20%" width="140%" height="140%"><feDropShadow dx="0" dy="2" stdDeviation="3" flood-color="#000" flood-opacity=".75"/></filter>
+</defs>
+<image href="cards/house-background.png" x="0" y="0" width="1200" height="630" preserveAspectRatio="xMidYMid slice"/>
+<rect x="0" y="0" width="1200" height="630" fill="url(#shade)"/>
+<g fill="#ffe6bd" text-anchor="middle" filter="url(#shadow)">
+  <text x="455" y="130" font-family="'Great Vibes','Brush Script MT',cursive" font-size="82">Morning Mercies</text>
+  <line x1="190" y1="157" x2="720" y2="157" stroke="#d9ad67" stroke-width="2" opacity=".9"/>
+  <text x="455" y="280" font-family="'Great Vibes','Brush Script MT',cursive" font-size="92">Authored by Grace</text>
+  <text x="455" y="342" font-family="'Cormorant Garamond',Georgia,serif" font-size="32" font-style="italic">Witness for daily devotion</text>
+  <line x1="260" y1="378" x2="650" y2="378" stroke="#d9ad67" stroke-width="2" opacity=".85"/>
+  <text x="455" y="430" font-family="'Cormorant Garamond',Georgia,serif" font-size="24" letter-spacing="4">AN AUTHORED BY GRACE PUBLICATION</text>
+  <text x="455" y="492" font-family="'Cormorant Garamond',Georgia,serif" font-size="27" letter-spacing="5">SCRIPTURE · STORY · PRAYER</text>
+</g>
+<text x="1030" y="555" fill="#ffe6bd" text-anchor="middle" font-family="'Great Vibes','Brush Script MT',cursive" font-size="52" filter="url(#shadow)">D. W. Smith</text>
+</svg>'''
 
 def build():
     if OUT_DIR.exists(): shutil.rmtree(OUT_DIR)
