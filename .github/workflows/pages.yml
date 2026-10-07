@@ -28,6 +28,23 @@ jobs:
           python-version: "3.12"
       - name: Install card renderer
         run: python -m pip install -r requirements.txt
+      - name: Restore and validate approved homepage cover
+        run: |
+          cat cover_parts/*.b64 | tr -d '\n' | base64 --decode > assets/cards/series-cover-v2.jpg
+          python - <<'PY'
+          from pathlib import Path
+          from PIL import Image
+          cover = Path("assets/cards/series-cover-v2.jpg")
+          with Image.open(cover) as image:
+              if image.format != "JPEG":
+                  raise SystemExit(f"Homepage cover must be JPEG, got {image.format}")
+              if image.size != (720, 378):
+                  raise SystemExit(f"Unexpected homepage cover size: {image.size}")
+              image.verify()
+          if cover.stat().st_size < 30000:
+              raise SystemExit("Homepage cover payload is unexpectedly small")
+          print(f"Validated homepage cover: {cover.stat().st_size} bytes, 720x378 JPEG")
+          PY
       - name: Check publishing contract
         run: python -m unittest -v test_publishing
       - name: Build static site
