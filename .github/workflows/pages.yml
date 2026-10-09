@@ -66,6 +66,18 @@ jobs:
         env:
           INCLUDE_DRAFTS: "1"
         run: python -c 'from pathlib import Path; import build; build.OUT_DIR = Path("_review_site"); build.build()'
+      - name: Inspect desktop and phone preview
+        if: github.event_name == 'pull_request'
+        run: |
+          python -m pip install playwright==1.58.0
+          python -m playwright install --with-deps chromium
+          python tools/inspect_catalog.py
+      - name: Upload preview screenshots
+        if: github.event_name == 'pull_request'
+        uses: actions/upload-artifact@v4
+        with:
+          name: authored-by-grace-screenshots
+          path: ./_catalog_screens
       - name: Upload review preview
         if: github.event_name == 'pull_request'
         uses: actions/upload-artifact@v4
