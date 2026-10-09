@@ -18,7 +18,7 @@ Change `status` to `published` only when approved. Two posts on one date have di
 
 Published future entries are omitted until their publication time. They appear on the next build after that time. No clock schedule or automatic content generation is enabled. For twice-daily releases, merge the approved morning and afternoon content when ready. A push or manual run rebuilds the site.
 
-To view drafts locally: `INCLUDE_DRAFTS=1 python build.py`. Do not set this variable in deployment jobs. The review artifact from the PR workflow uses the production build, excluding drafts.
+To view drafts locally: `INCLUDE_DRAFTS=1 python build.py`. Do not set this variable in deployment jobs. The PR checks the production build first, then creates a separate review artifact including visibly labeled draft catalog entries. That review artifact is never deployed.
 
 ## Music, spoken audio, video, downloads
 

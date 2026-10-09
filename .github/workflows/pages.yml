@@ -61,12 +61,17 @@ jobs:
         run: python3 build.py
       - name: Validate catalog output
         run: python -m unittest -v test_catalog
+      - name: Build review preview including drafts
+        if: github.event_name == 'pull_request'
+        env:
+          INCLUDE_DRAFTS: "1"
+        run: python -c 'from pathlib import Path; import build; build.OUT_DIR = Path("_review_site"); build.build()'
       - name: Upload review preview
         if: github.event_name == 'pull_request'
         uses: actions/upload-artifact@v4
         with:
           name: authored-by-grace-catalog-preview
-          path: ./_site
+          path: ./_review_site
       - name: Upload GitHub Pages artifact
         if: github.ref == 'refs/heads/main' && github.event_name != 'pull_request'
         uses: actions/upload-pages-artifact@v4
