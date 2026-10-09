@@ -12,11 +12,11 @@ class PublishingTests(unittest.TestCase):
             out = Path(directory) / 'site'
             with patch.object(build, 'OUT_DIR', out):
                 build.build()
-            sources = list(build.CONTENT_DIR.glob('*.md'))
+            sources = [p for p in build.CONTENT_DIR.glob('*.md') if build.visible(build.parse_front_matter(p.read_text())[0], p.name[:10])]
             latest = max(
                 sources,
                 key=lambda source: build.parse_front_matter(source.read_text())[0].get(
-                    'publish_date', source.name[:10]
+                    'publish_at', build.parse_front_matter(source.read_text())[0].get('publish_date', source.name[:10])
                 ),
             )
             meta, _ = build.parse_front_matter(latest.read_text())
@@ -72,3 +72,4 @@ class PublishingTests(unittest.TestCase):
 
 if __name__ == '__main__':
     unittest.main()
+
