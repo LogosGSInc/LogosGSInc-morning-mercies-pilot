@@ -20,6 +20,7 @@ with sync_playwright() as p:
     page.evaluate('document.fonts.ready')
     assert page.locator('.catalog-card').count()==12
     assert page.evaluate('Array.from(document.images).every(i=>i.complete&&i.naturalWidth>0)')
+    assert page.evaluate('Array.from(document.querySelectorAll(".hero-art,.latest-card")).every(i=>Math.abs(i.clientWidth/i.clientHeight-i.naturalWidth/i.naturalHeight)<0.02)')
     page.screenshot(path=str(screens/'desktop.png'),full_page=True)
     page.locator('#catalog-search').fill('Philippians 4:9')
     assert page.locator('.catalog-card:visible').count()==1
