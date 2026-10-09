@@ -148,11 +148,6 @@ def build():
         date.fromisoformat(entry["publish_date"])
     entries.sort(key=lambda e:datetime.fromisoformat(e["publish_at"]),reverse=True)
     if not entries: raise ValueError("No devotion content")
-    latest=entries[0]
-    items=[]
-    for e in entries:
-        items.append(f'<li><a href="{e["url"]}"><span class="devotion-number">DAY {html.escape(e["day"] or "—")}</span><span><span class="item-title">{html.escape(e["title"])}</span><span class="item-meta">{html.escape(e["subtitle"])}</span></span><span class="item-arrow">→</span></a></li>')
-    (OUT_DIR/"index.html").write_text(fill(it,{"LATEST_URL":latest["url"],"LATEST_TITLE":html.escape(latest["title"]),"LATEST_TEASER":html.escape(latest["teaser"]),"LATEST_CARD":latest["card"],"DEVOTION_LIST":"\n".join(items)}))
     from catalog import build_catalog
     build_catalog(entries, OUT_DIR, SITE_URL, markdown_to_html, fill, TEMPLATE_DIR)
     print(f"Built {len(entries)} devotion(s)")
