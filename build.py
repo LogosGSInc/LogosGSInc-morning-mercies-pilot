@@ -1,12 +1,28 @@
 from __future__ import annotations
-import html, os, re, shutil
+import html, os, re, shutil, json
+from datetime import datetime, timezone
+from zoneinfo import ZoneInfo
 from datetime import date
 import cards
 from pathlib import Path
 ROOT=Path(__file__).resolve().parent
 CONTENT_DIR=ROOT/"content"/"devotions"; TEMPLATE_DIR=ROOT/"templates"; ASSET_DIR=ROOT/"assets"; OUT_DIR=ROOT/"_site"
 SITE_URL=os.environ.get("SITE_URL","https://logosgsinc.github.io/LogosGSInc-morning-mercies-pilot/").rstrip("/")+"/"
-PILOT_BLOCK='''<p class="eyebrow">Founding Design Partner Pilot</p><h2>Help shape Morning Mercies.</h2><p>Seven Founding Design Partners will read with us for a 14-day pilot and share what strengthens them, what distracts them, and what should change before the first 30-day volume is published. Applications stay open for seven calendar days after the public call begins.</p><ul class="feedback-points"><li>Did the story stay with you?</li><li>Was the Scripture clear and faithful?</li><li>Did the prayer help you carry it into the day?</li><li>How did this page feel to read?</li></ul><p class="pilot-mini">The first three completed 30-day Morning Mercies digital volumes will be provided at no cost. Founding Design Partner recognition is optional and requires your permission.</p><a class="button primary full" href="mailto:morningmercies.pilot@gmail.com?subject=Morning%20Mercies%20Founding%20Design%20Partner">Request a pilot seat</a>'''
+PILOT_BLOCK='<p class="eyebrow">Authored by Grace</p><h2>Carry the Word into your day.</h2><p>Scripture, story, and prayer. Read the daily devotionals and explore the growing collection.</p><a class="button primary full" href="../../index.html#catalog">Browse the catalog</a>'
+
+def publication(meta, fallback):
+    value=meta.get("publish_at", meta.get("publish_date", fallback))
+    moment=datetime.fromisoformat(value)
+    if moment.tzinfo is None:
+        moment=moment.replace(tzinfo=ZoneInfo("America/Chicago"))
+    return moment
+
+def visible(meta, fallback):
+    status=meta.get("status", "published")
+    if status not in {"draft", "published"}: raise ValueError("Invalid publication status")
+    if os.environ.get("INCLUDE_DRAFTS")=="1": return True
+    return status=="published" and publication(meta, fallback)<=datetime.now(timezone.utc)
+
 
 def parse_front_matter(text):
     if not text.startswith("---\n"): raise ValueError("Devotion file must start with front matter")
@@ -118,6 +134,7 @@ def build():
     entries=[]; seen=set()
     for source in sorted(CONTENT_DIR.glob("*.md")):
         meta,body=parse_front_matter(source.read_text()); slug=meta["slug"]
+        if not visible(meta, source.name[:10]): continue
         if slug in seen: raise ValueError("Duplicate slug")
         seen.add(slug)
         short,long=split_forms(body); long=strip_duplicate_intro(long,meta["title"]); taste=teaser(meta,short)
@@ -126,16 +143,14 @@ def build():
         page=OUT_DIR/"devotions"/slug; page.mkdir(parents=True,exist_ok=True)
         (page/"index.html").write_text(fill(dt,{"TITLE":html.escape(meta["title"]),"DESCRIPTION":html.escape(meta["description"],quote=True),"PAGE_URL":page_url,"SHARE_IMAGE_URL":card_url,"SHARE_IMAGE_REL":f"../../{card_rel}","ASSET_PREFIX":"../../","ROOT_VERSE":html.escape(meta.get("root_verse","Scripture")),"TRANSLATION":html.escape(meta.get("translation","KJV")),"BODY_HTML":markdown_to_html(long),"AUTHOR":html.escape(meta["author"]),"PILOT_BLOCK":PILOT_BLOCK}))
         (OUT_DIR/"share"/f"{slug}.txt").write_text(f"{taste}\n\nRead today’s Morning Mercy:\n{page_url}\n\n#MorningMercies #AuthoredByGrace #DailyDevotion #BibleDevotional\n")
-        entries.append({"title":meta["title"],"subtitle":f"{meta.get('root_verse','')} · {meta.get('translation','KJV')}","url":f"devotions/{slug}/","day":meta.get("day",""),"teaser":taste,"card":card_rel,"publish_date":meta.get("publish_date",source.name[:10])})
+        entries.append({"title":meta["title"],"subtitle":f"{meta.get('root_verse','')} · {meta.get('translation','KJV')}","url":f"devotions/{slug}/","day":meta.get("day",""),"teaser":taste,"card":card_rel,"publish_date":meta.get("publish_date",source.name[:10]),"publish_at":publication(meta,source.name[:10]).isoformat(),"series":meta.get("series","Morning Mercies"),"type":"devotional","status":meta.get("status","published")})
     for entry in entries:
         date.fromisoformat(entry["publish_date"])
-    entries.sort(key=lambda e:e["publish_date"],reverse=True)
+    entries.sort(key=lambda e:datetime.fromisoformat(e["publish_at"]),reverse=True)
     if not entries: raise ValueError("No devotion content")
-    latest=entries[0]
-    items=[]
-    for e in entries:
-        items.append(f'<li><a href="{e["url"]}"><span class="devotion-number">DAY {html.escape(e["day"] or "—")}</span><span><span class="item-title">{html.escape(e["title"])}</span><span class="item-meta">{html.escape(e["subtitle"])}</span></span><span class="item-arrow">→</span></a></li>')
-    (OUT_DIR/"index.html").write_text(fill(it,{"LATEST_URL":latest["url"],"LATEST_TITLE":html.escape(latest["title"]),"LATEST_TEASER":html.escape(latest["teaser"]),"LATEST_CARD":latest["card"],"DEVOTION_LIST":"\n".join(items)}))
+    from catalog import build_catalog
+    build_catalog(entries, OUT_DIR, SITE_URL, markdown_to_html, fill, TEMPLATE_DIR)
     print(f"Built {len(entries)} devotion(s)")
 
 if __name__=="__main__": build()
+

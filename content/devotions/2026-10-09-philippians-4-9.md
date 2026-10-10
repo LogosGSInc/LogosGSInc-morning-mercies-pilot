@@ -3,7 +3,7 @@ title: "Philippians 4:9 Meaning: Do the Things You've Seen"
 root_verse: "Philippians 4:9"
 translation: "KJV"
 slug: "philippians-4-9-meaning-do-the-things-youve-seen"
-description: "A Morning Mercies devotional on Philippians 4:9 about learning faith like a trade: from God's Word and faithful people, one practiced step at a time, with the God of peace."
+description: "Learning faith like a trade: from God's Word and faithful people, one practiced step at a time, with the God of peace."
 card_title: "Do the Things You've Seen"
 card_scripture: "Philippians 4:9"
 card_verse: "Those things, which ye have both learned, and received, and heard, and seen in me, do: and the God of peace shall be with you."
@@ -12,21 +12,43 @@ author: "D. W. Smith"
 series: "Morning Mercies"
 brand: "Authored by Grace"
 tagline: "Witness for daily devotion"
-volume: "Pilot"
 day: "12"
+content_batch: "7"
 publish_date: "2026-10-09"
-social_teaser: "Knowing ain't the same as doing. Learn from God's Word and faithful people, then take the next practiced step. You don't earn God's presence: Paul joins the practice and the promise—the God of peace shall be with you."
+publish_at: "2026-10-09T08:00:00-05:00"
+status: "draft"
+social_teaser: "Five months sober. His daughter's birthday is tomorrow. A handwritten card in an old toolbox points Benny toward prayer, faithful practice, and the God of peace. A fictional Morning Mercies story."
 ---
 
-Friday, October 9, 2026
+# Morning Mercy
 
-### Scripture
+DO THE THINGS YOU'VE SEEN
+Morning Mercies | Authored by Grace
 
-> "Those things, which ye have both learned, and received, and heard, and seen in me, do: and the God of peace shall be with you."
->
-> — Philippians 4:9 (KJV)
+"Those things, which ye have both learned, and received, and heard, and seen in me, do: and the God of peace shall be with you."
+— Philippians 4:9 (KJV)
 
-### Story
+Most of us learned the important things by watching. How to bait a hook. How to hold a baby. How to say "I was wrong" and mean it.
+
+Paul wrote this letter as a prisoner, to a church he had planted. Acts tells how that church began. Paul and Silas were beaten and put in a Philippian jail with their feet in the stocks: "And at midnight Paul and Silas prayed, and sang praises unto God: and the prisoners heard them" (Acts 16:25). Now Paul writes to the believers there: what you learned from me, what was handed to you, what you heard, what you saw me do. Do it.
+
+That isn't bragging. One chapter earlier he admits, "Not as though I had already attained, either were already perfect" (from Philippians 3:12). Elsewhere he says, "Be ye followers of me, even as I also am of Christ" (1 Corinthians 11:1). Paul's life points past himself to Jesus.
+
+And notice who he's writing to. People God had already begun a good work in (Philippians 1:6). Doing these things doesn't buy God's presence. Jesus already paid for us. But Paul does join a promise to a practice: do these things, "and the God of peace shall be with you." Just before, he named some of them: pray about everything with thanksgiving (4:6), and think on whatever is true, honest, just, pure, and lovely (4:8).
+
+Paul wasn't writing about addiction, and he gives no promise that trouble ends. He was still a prisoner when he wrote about peace. But by application, recovery is learned a lot like faith: from God's Word, and from faithful people you can watch up close.
+
+TODAY'S STEP
+Think of one thing you've seen a faithful, trustworthy person do. Pray before a hard call. Show up early. Tell the truth when a lie would be easier. Do that one thing today.
+
+PRAYER
+Father, thank You for the work You began in me through Jesus. I know more than I do. Help me practice what I have learned and seen. I bring You today's worries with thanks. God of peace, be with me. In Jesus' name, amen.
+
+---
+This content offers spiritual encouragement and is not medical, mental-health, or addiction-treatment advice. If you are in immediate danger, call 911. For suicidal or emotional crisis, call or text 988. Seek medical guidance before stopping alcohol or other substances; withdrawal from alcohol and some other substances can be dangerous. U.S. resources: SAMHSA (Substance Abuse and Mental Health Services Administration) National Helpline, 1-800-662-4357, offers free treatment referral and information.
+
+
+# Morning Mercies Book Devotional
 
 Odell's Small Engine sat between a feed store and a church that used to be a bank, and on Saturday mornings it smelled like coffee, gas, and cut grass.
 
@@ -74,7 +96,7 @@ Odell pulled a pocket New Testament from his shirt, the cover held on with elect
 > "And at midnight Paul and Silas prayed, and sang praises unto God: and the prisoners heard them."
 > — Acts 16:25 · KJV
 
-"That happened when the gospel first came to Philippi. Those folks heard Paul teach and watched how he lived. That's what he means. Somewhere else he says it plain: 'Be ye followers of me, even as I also am of Christ.' Watch me follow Jesus. Then do it."
+"That's how the church in Philippi got its start. Those folks heard Paul teach and watched how he lived. That's what he means. Somewhere else he says it plain: 'Be ye followers of me, even as I also am of Christ.' Watch me follow Jesus. Then do it."
 
 Benny chewed on that. "So if I do it right, God shows up."
 
@@ -137,7 +159,7 @@ Father, thank You that You began a good work in me before I knew how to do anyth
 - 1 Corinthians 11:1
 
 ---
-
 Story note: Benny, Odell, and Hollis are fictional characters, not real people.
 
 This content offers spiritual encouragement and is not medical, mental-health, or addiction-treatment advice. If you are in immediate danger, call 911. For suicidal or emotional crisis, call or text 988. Seek medical guidance before stopping alcohol or other substances; withdrawal from alcohol and some other substances can be dangerous. U.S. resources: SAMHSA (Substance Abuse and Mental Health Services Administration) National Helpline, 1-800-662-4357, offers free treatment referral and information.
+

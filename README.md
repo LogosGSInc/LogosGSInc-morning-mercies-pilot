@@ -1,12 +1,12 @@
-# Morning Mercies — Authored by Grace
+# Authored by Grace — content catalog
 
-Pilot publishing system for **Morning Mercies — Authored by Grace: Witness for daily devotion**.
+Public catalog and daily publishing system for **Authored by Grace**, beginning with Morning Mercies. See [catalog publishing](docs/CATALOG-PUBLISHING.md) for twice-daily posts, media entries, draft handling, and migration notes.
 
 ## Daily workflow
 
 1. Claude/reviewer produces one final canonical Markdown file.
 2. Put it in `content/devotions/`.
-3. Commit to `main`.
+3. Approve the finished entry, then merge its reviewed change to `main`.
 4. GitHub Actions generates:
    - the warm-paper branded web devotion,
    - a unique 1200×630 social card,
@@ -32,7 +32,7 @@ Example:
 
 `https://logosgsinc.github.io/LogosGSInc-morning-mercies-pilot/devotions/why-you-keep-losing-the-same-battle/`
 
-The site root explains the project, features the newest devotion, offers the Founding Design Partner pilot, and keeps the devotion archive.
+The site root features the newest released devotional and a searchable collection. Existing devotional URLs stay intact.
 
 ## Pages setup
 
@@ -43,3 +43,4 @@ Repository Settings → Pages → Build and deployment → Source → **GitHub A
 See [the publishing decisions](docs/MORNING-MERCIES-HOUSE-STYLE.md). Install dependencies with `python -m pip install -r requirements.txt`, then run `python build.py`. The build produces final PNG cards directly using bundled fonts and approved artwork; no separate SVG conversion is required.
 
 Supply the exact card verse, reference, thematic line, and publication date in the canonical Markdown. Publish the prepared entry the next morning only after the author's release instruction. Never push main as part of afternoon preparation.
+
