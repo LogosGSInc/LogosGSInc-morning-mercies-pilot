@@ -138,4 +138,7 @@ def build():
     (OUT_DIR/"index.html").write_text(fill(it,{"LATEST_URL":latest["url"],"LATEST_TITLE":html.escape(latest["title"]),"LATEST_TEASER":html.escape(latest["teaser"]),"LATEST_CARD":latest["card"],"DEVOTION_LIST":"\n".join(items)}))
     print(f"Built {len(entries)} devotion(s)")
 
-if __name__=="__main__": build()
+if __name__=="__main__":
+    build()
+    import hub, sys
+    hub.build_hub(sys.modules[__name__])

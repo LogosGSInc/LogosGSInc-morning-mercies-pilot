@@ -1,0 +1,72 @@
+name: Upload reviewed audio and video
+
+on:
+  release:
+    types: [published]
+  workflow_dispatch:
+    inputs:
+      release_tag:
+        description: 'Published GitHub Release tag starting with abg-'
+        required: true
+        type: string
+
+permissions:
+  contents: read
+  pages: write
+  id-token: write
+
+concurrency:
+  group: abg-media-import
+  cancel-in-progress: false
+
+jobs:
+  import:
+    if: github.event_name == 'workflow_dispatch' || startsWith(github.event.release.tag_name, 'abg-')
+    runs-on: ubuntu-latest
+    permissions:
+      contents: write
+    steps:
+      - uses: actions/checkout@v6
+        with:
+          ref: main
+      - uses: actions/setup-python@v6
+        with:
+          python-version: '3.12'
+      - name: Install media utilities
+        run: |
+          python -m pip install -r requirements.txt 'boto3>=1.35,<2'
+          sudo apt-get update -qq
+          sudo apt-get install -y ffmpeg
+      - name: Download release attachments
+        env:
+          GH_TOKEN: ${{ github.token }}
+          RELEASE_TAG: ${{ inputs.release_tag || github.event.release.tag_name }}
+        run: |
+          [[ "$RELEASE_TAG" =~ ^abg-[a-zA-Z0-9._-]+$ ]] || exit 1
+          gh release download "$RELEASE_TAG" --repo "$GITHUB_REPOSITORY" --dir "$RUNNER_TEMP/abg-upload"
+      - name: Build existing catalog for relationship checks
+        run: python3 build.py
+      - name: Validate and upload reviewed media
+        env:
+          R2_ENDPOINT: ${{ secrets.R2_ENDPOINT }}
+          R2_ACCESS_KEY_ID: ${{ secrets.R2_ACCESS_KEY_ID }}
+          R2_SECRET_ACCESS_KEY: ${{ secrets.R2_SECRET_ACCESS_KEY }}
+          R2_BUCKET: ${{ vars.R2_BUCKET }}
+          MEDIA_BASE_URL: ${{ vars.MEDIA_BASE_URL }}
+          RELEASE_TAG: ${{ inputs.release_tag || github.event.release.tag_name }}
+        run: python scripts/import_media.py "$RUNNER_TEMP/abg-upload"
+      - name: Persist media records
+        run: |
+          git config user.name 'github-actions[bot]'
+          git config user.email '41898282+github-actions[bot]@users.noreply.github.com'
+          git add content/media
+          if ! git diff --cached --quiet; then
+            git commit -m 'Register reviewed Authored by Grace media'
+            git push origin HEAD:main
+          fi
+  publish:
+    needs: import
+    uses: ./.github/workflows/pages.yml
+    with:
+      source_ref: main
+    secrets: inherit

@@ -2,3 +2,5 @@ _site/
 __pycache__/
 .venv/
 *.pyc
+release-packets/
+__pycache__/
