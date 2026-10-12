@@ -1,9 +1,15 @@
-name: Build and deploy Morning Mercies
+name: Build and deploy Authored by Grace
 
 on:
   push:
     branches: ["main"]
   workflow_dispatch:
+  workflow_call:
+    inputs:
+      source_ref:
+        required: false
+        type: string
+        default: ''
 
 permissions:
   contents: read
@@ -20,6 +26,8 @@ jobs:
     steps:
       - name: Check out repository
         uses: actions/checkout@v6
+        with:
+          ref: ${{ inputs.source_ref || github.sha }}
       - name: Configure GitHub Pages
         uses: actions/configure-pages@v5
       - name: Set up Python
@@ -51,11 +59,13 @@ jobs:
           print("Validated exact approved homepage cover: 600x315 JPEG, 25065 bytes, SHA-256 match")
           PY
       - name: Check publishing contract
-        run: python -m unittest -v test_publishing
+        run: python -m unittest -v test_publishing test_hub
       - name: Build static site
         env:
-          SITE_URL: https://logosgsinc.github.io/LogosGSInc-morning-mercies-pilot/
+          SITE_URL: ${{ vars.WEBSITE_BASE_URL || 'https://logosgsinc.github.io/LogosGSInc-morning-mercies-pilot/' }}
         run: python3 build.py
+      - name: Check generated links
+        run: python scripts/check_links.py
       - name: Upload GitHub Pages artifact
         uses: actions/upload-pages-artifact@v4
         with:
